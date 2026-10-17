@@ -1,0 +1,18 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+.env
+.ipynb_checkpoints
+
+# Large trained model
+model.pkl
+
+# Python environment and cache
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets
+.env

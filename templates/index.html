@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intel Estate | Ahmedabad Property Valuation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700;800&display=swap');
+
+        :root {
+            --bg: #fff7ed;
+            --accent: #fde047;
+            --secondary: #ff8df1;
+            --black: #1a1a1a;
+            --white: #ffffff;
+            --border-width: 3px;
+            --shadow: 6px 6px 0px 0px var(--black);
+            --shadow-small: 4px 4px 0px 0px var(--black);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(var(--black) 1px, transparent 1px);
+            background-size: 20px 20px;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            color: var(--black);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 10px; /* Minimal padding for mobile edges */
+        }
+
+        .neo-card {
+            background: var(--white);
+            border: var(--border-width) solid var(--black);
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 550px;
+            padding: clamp(20px, 5vw, 35px); /* Fluid padding */
+            position: relative;
+            margin: auto;
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: var(--secondary);
+            border: var(--border-width) solid var(--black);
+            padding: 4px 12px;
+            font-weight: 800;
+            font-size: clamp(10px, 2.5vw, 12px);
+            text-transform: uppercase;
+            position: absolute;
+            top: -14px;
+            left: 20px;
+            transform: rotate(-2deg);
+            z-index: 10;
+        }
+
+        .title-section {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .title-section h1 {
+            font-size: clamp(24px, 6vw, 32px); /* Fluid title size */
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+
+        .title-section p {
+            font-size: clamp(12px, 3vw, 14px);
+            color: var(--black);
+            opacity: 0.8;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .full {
+            grid-column: span 2;
+        }
+
+        label {
+            font-weight: 800;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input, select {
+            background: var(--white);
+            border: 2px solid var(--black);
+            padding: 12px; /* Increased for better touch target */
+            font-family: inherit;
+            font-size: 16px; /* Prevents auto-zoom on iOS */
+            font-weight: 700;
+            outline: none;
+            transition: transform 0.1s ease;
+            width: 100%;
+            border-radius: 0; /* Keeps brutalist sharp look */
+        }
+
+        input:focus, select:focus {
+            background: var(--accent);
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0px 0px var(--black);
+        }
+
+        .btn-predict {
+            grid-column: span 2;
+            background: var(--accent);
+            border: var(--border-width) solid var(--black);
+            padding: 15px;
+            font-size: clamp(16px, 4vw, 18px);
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: var(--shadow-small);
+            transition: all 0.1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 5px;
+            width: 100%;
+        }
+
+        .btn-predict:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px 0px var(--black);
+        }
+
+        .btn-predict:active {
+            transform: translate(0, 0);
+            box-shadow: none;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            background: var(--black);
+            color: var(--white);
+            padding: 20px;
+            border: var(--border-width) solid var(--black);
+            text-align: center;
+            position: relative;
+        }
+
+        .result-box::before {
+            content: "ESTIMATED VALUE";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--white);
+            color: var(--black);
+            font-weight: 800;
+            padding: 1px 8px;
+            font-size: 10px;
+            border: 2px solid var(--black);
+        }
+
+        .prediction-text {
+            font-size: clamp(18px, 5vw, 24px);
+            font-weight: 800;
+            word-break: break-word;
+        }
+
+        .result-caption { font-size: 11px; line-height: 1.5; margin-top: 8px; color: #e5e5e5; }
+        .result-detail { font-size: 12px; line-height: 1.5; margin-top: 6px; color: #f5f5f5; overflow-wrap: anywhere; }
+        .message { padding: 12px; border: 2px solid var(--black); font-size: 13px; font-weight: 700; line-height: 1.5; }
+        .error-message { background: #ffe4e6; color: #881337; }
+        .helper-note { font-size: 11px; line-height: 1.5; color: #555; margin-top: 2px; }
+
+        /* Fully Responsive Breakpoints */
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr; /* Stack everything on small screens */
+            }
+            .full, .btn-predict {
+                grid-column: span 1;
+            }
+            .neo-card {
+                padding: 20px;
+            }
+            body {
+                padding: 30px 10px; /* More space for the top badge */
+            }
+        }
+
+        /* Landscape orientation optimization for small mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            body {
+                align-items: flex-start;
+                padding-top: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="neo-card">
+        <div class="header-badge">LIVE • AHMEDABAD</div>
+        
+        <div class="title-section">
+            <h1>INTEL ESTATE</h1>
+            <p>Ahmedabad property valuation • ML-powered estimate</p>
+        </div>
+
+        <form id="valuation-form" action="/predict" method="post">
+            
+            <div class="field full">
+                <label>📍 Area Location</label>
+                <input type="text" name="location"
+                    value="{{ request.form.location|default('', true) }}"
+                    placeholder="Enter location (e.g. Satellite)" maxlength="160" autocomplete="off" required>
+                <p class="helper-note">Enter a supported Ahmedabad locality. Unknown locations are rejected.</p>
+            </div>
+
+            <div class="form-grid">
+                <div class="field">
+                    <label>🏗️ Area Type</label>
+                    <select name="area_type" required>
+                        <option value="" disabled {% if not request.form.area_type %}selected{% endif %}>Select Type</option>
+                        {% for a in area_types %}
+                        <option value="{{a}}" {% if request.form.area_type == a %}selected{% endif %}>{{a}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>🏠 Property</label>
+                    <select name="property_type" required>
+                        <option value="" disabled {% if not request.form.property_type %}selected{% endif %}>Select Class</option>
+                        {% for p in property_types %}
+                        <option value="{{p}}" {% if request.form.property_type == p %}selected{% endif %}>{{p}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>📏 Total Sqft</label>
+                    <input type="number" name="sqft" value="{{ request.form.sqft|default('', true) }}" placeholder="e.g. 1500" min="100" max="100000" step="1" required>
+                </div>
+
+                <div class="field">
+                    <label>🛏️ BHK</label>
+                    <input type="number" name="bhk_type" value="{{ request.form.bhk_type|default('', true) }}" placeholder="e.g. 3" min="1" max="10" step="1" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-predict">
+                Analyze Price Now ⚡
+            </button>
+
+            {% if error_text %}
+            <div id="validation-error" class="message error-message" role="alert">{{ error_text }}</div>
+            {% endif %}
+
+            {% if prediction_text %}
+            <div class="result-box" aria-live="polite">
+                <div class="prediction-text">{{ prediction_text }}</div>
+                <p class="result-caption">Indicative model estimate · not a formal property appraisal</p>
+                {% if matched_location %}
+                <p class="result-detail">Matched location: <strong>{{ matched_location }}</strong></p>
+                {% endif %}
+                {% if rate_used %}
+                <p class="result-detail">Rate feature used: ₹{{ "{:,.0f}".format(rate_used) }}/sq ft</p>
+                {% endif %}
+            </div>
+            {% endif %}
+        </form>
+    </div>
+
+
+
+
+    <script>
+        // A server-rendered error belongs to the previous submission.
+        // Hide it as soon as the user edits a field; the next server response
+        // will show a fresh error or a successful estimate as appropriate.
+        (() => {
+            const form = document.getElementById("valuation-form");
+            const errorBox = document.getElementById("validation-error");
+            if (!form || !errorBox) return;
+
+            const clearStaleError = () => {
+                errorBox.hidden = true;
+                errorBox.setAttribute("aria-hidden", "true");
+            };
+
+            form.querySelectorAll("input, select").forEach((field) => {
+                field.addEventListener("input", clearStaleError);
+                field.addEventListener("change", clearStaleError);
+            });
+
+            form.addEventListener("submit", () => {
+                // Avoid displaying a stale message while the new request is submitted.
+                clearStaleError();
+            });
+        })();
+    </script>
+
+</body>
+</html>

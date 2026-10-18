@@ -1,102 +1,231 @@
-# Intel Estate — Ahmedabad Property Valuation
+::: {align="center"}
+# 🏡 IntelEstate
 
-Intel Estate is a Flask-based machine-learning prototype that estimates a property's indicative value from its location, area, area type, property type, and BHK count. It uses a saved Random Forest regression model trained on historical Ahmedabad property-listing data.
+### AI-Powered House Price Prediction for Ahmedabad
 
-> **Important:** This is an educational estimate, not a formal valuation, appraisal, offer, or guarantee of market price. Listing data may be incomplete or outdated.
+**Estimate property prices using machine learning and a simple web
+interface.**
 
-## Features
+[![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Backend-Flask-black?logo=flask)](https://flask.palletsprojects.com/)
+[![Scikit-learn](https://img.shields.io/badge/ML-scikit--learn-F7931E?logo=scikitlearn&logoColor=white)](https://scikit-learn.org/)
+[![Status](https://img.shields.io/badge/Status-Academic%20Project-blue)](#)
+:::
 
-- Responsive, neo-brutalist interface.
-- Location matching with conservative fuzzy matching; unsupported locations produce a validation message rather than silently mapping to an unrelated location.
-- Input validation for area, BHK, and categorical selections.
-- Uses a location-specific median `rate_per_sqft` from `dataset.csv` where available, with a filtered dataset-wide median as fallback.
-- Displays the matched dataset location and rate feature used.
-- Safe output rendering (no `safe` filter on user/model output), generic user-facing errors, and server-side logging.
-- `/health` endpoint for a basic service check.
+------------------------------------------------------------------------
 
-## Project structure
+## 📌 About the Project
 
-```text
+**IntelEstate** is a machine-learning-based property price prediction
+project focused on the Ahmedabad real-estate market. It uses property
+information such as location, area, property type, area type, and BHK
+configuration to estimate a property's price.
+
+The project combines a trained regression model with a Flask web
+application, allowing users to enter property details and view a
+prediction through a browser.
+
+> **Note:** Predictions are estimates based on the dataset and model
+> used. They are not official property valuations or guarantees of
+> current market prices.
+
+## ✨ Key Features
+
+-   **Property price estimation** using a machine-learning regression
+    model.
+-   **Ahmedabad-focused dataset** for location-aware estimation within
+    the dataset's coverage.
+-   **Web interface** built with HTML and CSS.
+-   **Flask backend** to receive property details and return
+    predictions.
+-   **Categorical encoding** using saved encoders for supported input
+    fields.
+-   **Model evaluation** through a separate Python script for analysis
+    and performance checks.
+
+## 🧰 Technology Stack
+
+  -----------------------------------------------------------------------
+  Layer                               Tools
+  ----------------------------------- -----------------------------------
+  Programming language                Python
+
+  Data processing                     Pandas, NumPy
+
+  Machine learning                    Scikit-learn, Random Forest
+                                      Regression
+
+  Model and encoder persistence       Joblib, Pickle
+
+  Backend                             Flask
+
+  Frontend                            HTML, CSS
+
+  Analysis and evaluation             `evaluate_model.py`, Matplotlib (if
+                                      configured in the script)
+
+  Version control                     Git, GitHub
+  -----------------------------------------------------------------------
+
+## 🔄 How It Works
+
+1.  **Enter property details** --- provide the supported location and
+    property attributes.
+2.  **Validate and preprocess** --- the application checks inputs and
+    converts categorical values using the saved encoders.
+3.  **Generate a prediction** --- the trained regression model processes
+    the prepared features.
+4.  **Display the result** --- the Flask application returns the
+    estimated price in the web interface.
+
+``` text
+User
+  │
+  ▼
+HTML/CSS Form
+  │
+  ▼
+Flask Application (app.py)
+  │
+  ▼
+Input Validation & Encoding
+  │
+  ▼
+Trained ML Model
+  │
+  ▼
+Estimated Property Price
+```
+
+## 📁 Project Structure
+
+``` text
 IntelEstate/
 ├── app.py
-├── model.pkl
+├── dataset.csv
+├── evaluate_model.py
 ├── location_encoder.pkl
 ├── area_encoder.pkl
 ├── property_encoder.pkl
-├── dataset.csv
 ├── requirements.txt
 ├── README.md
-├── evaluate_model.py
-├── tests/
-│   └── test_app.py
+├── .gitignore
 └── templates/
     └── index.html
 ```
 
-## Requirements
+The trained `model.pkl` file is not listed above because it may be
+excluded from Git tracking due to its size. The application will need
+the compatible model artifact at the path expected by `app.py`.
 
-- Python 3.11 recommended.
-- The saved model was serialized with scikit-learn 1.8.0; keep the pinned version to reduce pickle compatibility issues.
-- About 150 MB of disk space for the model and dataset, plus installed dependencies.
+## ⚙️ Getting Started
 
-## Run locally (Windows PowerShell)
+### 1. Prerequisites
 
-1. Extract the ZIP and open PowerShell in the folder containing `app.py`.
-2. Create a virtual environment:
+-   Python installed on your computer
+-   Git (optional, for cloning the repository)
+-   A compatible trained model file, if it is not included in the
+    repository
 
-   ```powershell
-   py -3.11 -m venv .venv
-   .\.venv\Scripts\Activate.ps1
-   ```
+### 2. Clone the repository
 
-3. Install dependencies:
+``` bash
+git clone https://github.com/sahirparmar27/IntelEstate.git
+cd IntelEstate
+```
 
-   ```powershell
-   python -m pip install --upgrade pip
-   pip install -r requirements.txt
-   ```
+### 3. Create and activate a virtual environment
 
-4. Start the app:
+**Windows PowerShell**
 
-   ```powershell
-   python app.py
-   ```
+``` powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
 
-5. Open `http://127.0.0.1:5000` in your browser. Visit `http://127.0.0.1:5000/health` to check the service.
+If PowerShell blocks activation, you can run the environment's Python
+directly or follow your system's approved PowerShell execution-policy
+guidance.
 
-## Run locally (macOS/Linux)
+### 4. Install dependencies
 
-```bash
-python3.11 -m venv .venv
-source .venv/bin/activate
+``` powershell
 python -m pip install --upgrade pip
 pip install -r requirements.txt
+```
+
+### 5. Add the trained model artifact
+
+If `model.pkl` is not included in the repository, place the compatible
+file in the location expected by `app.py`. Check the model-loading path
+near the top of `app.py` before running the application.
+
+**Do not commit a large model file just to make the repository
+complete.** If you choose to distribute it, use an appropriate release
+or model-storage service and document how to obtain it.
+
+### 6. Run the application
+
+``` powershell
 python app.py
 ```
 
-## Model behavior and limitations
+Open the local address printed in the terminal (commonly
+`http://127.0.0.1:5000`) in your browser.
 
-- The model expects the following feature order: `location`, `area_in_sqft`, `rate_per_sqft`, `area_type`, `property_type`, `bhk_type`.
-- The target is `price_in_cr` (crores). The application therefore does not convert the model result from rupees or add a hand-written BHK multiplier.
-- The app no longer invents a ±10% range. It reports a point estimate because a calibrated prediction interval has not yet been established.
-- The dataset has missing values and outliers. Model quality should be reported only from a held-out evaluation, not from predictions on training rows. A fresh held-out evaluation with `evaluate_model.py` returned R² = **0.9670**, MAE = **0.0659 crore** (about ₹6.59 lakh), and RMSE = **0.2570 crore** (about ₹25.70 lakh) on 3,827 test rows in this environment. Run `python evaluate_model.py` to reproduce the evaluation; results may vary if the data or library versions change.
-- `rate_per_sqft` is approximated with historical median data at prediction time. The result depends on the quality and granularity of location data and should be validated before any real-world use.
+## 📊 Model Evaluation
 
-## Security and deployment notes
+Use the evaluation script to review the project's model analysis:
 
-- The local development server binds to `127.0.0.1` and debug mode is disabled.
-- For public deployment, use a production WSGI server (for example, Waitress on Windows or Gunicorn on Linux), configure a reverse proxy/HTTPS, add request logging and rate limiting, and avoid exposing detailed exceptions to users.
-- Do not commit virtual environments, private data, or generated secrets to source control.
+``` powershell
+python evaluate_model.py
+```
 
+The charts will appear only if the script includes plotting code and
+calls the relevant display function. If you want to save charts for your
+report, add `plt.savefig("filename.png", bbox_inches="tight")` before
+`plt.show()` where appropriate.
 
-### Location validation fix
-Unknown or unrelated locations are rejected with an on-page error instead of being
-silently mapped to another locality. Exact names and unique partial locality names
-of at least four characters are accepted. The regression test includes the reported
-invalid input `dijik astra`.
+An earlier project evaluation reported an **approximately 0.96 test R²
+score**. Results may vary depending on the dataset, preprocessing,
+train/test split, and model version. Run the current evaluation script
+to confirm the metrics for the version you are using.
 
+## 🗂️ Dataset and Responsible Use
 
-### Form validation message behavior
-An error from a previous submission is hidden immediately when the user edits any form field.
-The next submission shows the fresh server response: a new validation error for invalid input,
-or a prediction for a supported locality.
+The project uses property data associated with Ahmedabad. Before sharing
+`dataset.csv` publicly, verify that you have permission to redistribute
+it and that it contains no private or restricted information.
+
+The quality of estimates depends on dataset coverage, data freshness,
+feature preprocessing, and the model's evaluation methodology. The
+system should be treated as an educational prototype rather than a
+replacement for professional valuation.
+
+## 🚀 Future Improvements
+
+-   Add model versioning and reproducible training steps.
+-   Report evaluation metrics such as MAE, RMSE, and R² in a consistent
+    evaluation pipeline.
+-   Improve validation for unknown or misspelled locations.
+-   Add charts for location-wise price trends and feature importance.
+-   Refresh the dataset periodically and evaluate performance on unseen
+    data.
+-   Deploy the application with secure configuration and clear
+    model-artifact management.
+
+## 👨‍💻 Author
+
+**Sahir Parmar**\
+B.Tech student in Artificial Intelligence
+
+-   GitHub: [@sahirparmar27](https://github.com/sahirparmar27)
+-   Repository:
+    [IntelEstate](https://github.com/sahirparmar27/IntelEstate)
+
+------------------------------------------------------------------------
+
+::: {align="center"}
+**Built as a practical machine-learning project for real-estate price
+estimation.**
+:::

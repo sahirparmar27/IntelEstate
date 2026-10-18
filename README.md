@@ -225,7 +225,6 @@ B.Tech student in Artificial Intelligence
 
 ------------------------------------------------------------------------
 
-::: {align="center"}
+
 **Built as a practical machine-learning project for real-estate price
 estimation.**
-:::

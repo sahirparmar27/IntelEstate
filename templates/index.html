@@ -5,297 +5,392 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Intel Estate | Ahmedabad Property Valuation</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
 
         :root {
-            --bg: #fff7ed;
-            --accent: #fde047;
-            --secondary: #ff8df1;
-            --black: #1a1a1a;
-            --white: #ffffff;
-            --border-width: 3px;
-            --shadow: 6px 6px 0px 0px var(--black);
-            --shadow-small: 4px 4px 0px 0px var(--black);
+            --rose: #C9A0A0;
+            --rose-soft: #F1E5E4;
+            --olive: #8A8F68;
+            --olive-soft: #E9EADD;
+            --ink: #252720;
+            --muted: #6B6D62;
+            --paper: #F7F5F0;
+            --white: #FFFFFF;
+            --line: #E1DED5;
+            --shadow: 0 18px 50px rgba(37, 39, 32, 0.08);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            background-color: var(--bg);
-            background-image: radial-gradient(var(--black) 1px, transparent 1px);
-            background-size: 20px 20px;
-            font-family: 'Bricolage Grotesque', sans-serif;
-            color: var(--black);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px 10px; /* Minimal padding for mobile edges */
+            padding: 52px 32px;
+            background:
+                radial-gradient(circle at 8% 8%, rgba(201,160,160,.18), transparent 28rem),
+                radial-gradient(circle at 92% 88%, rgba(138,143,104,.16), transparent 30rem),
+                var(--paper);
+            color: var(--ink);
+            font-family: 'DM Sans', sans-serif;
         }
 
-        .neo-card {
-            background: var(--white);
-            border: var(--border-width) solid var(--black);
-            box-shadow: var(--shadow);
-            width: 100%;
-            max-width: 550px;
-            padding: clamp(20px, 5vw, 35px); /* Fluid padding */
-            position: relative;
-            margin: auto;
+        .app-shell { width: 100%; max-width: 1500px; margin: 0 auto; }
+
+        .page-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+            margin: 0 0 32px;
+        }
+
+        .brand-block { min-width: 0; }
+        .brand-name {
+            font-family: 'JUMP', 'Arial Black', 'DM Sans', sans-serif;
+            font-size: clamp(34px, 4.4vw, 54px);
+            font-weight: 800;
+            letter-spacing: -1.8px;
+            line-height: 1;
+        }
+        .brand-name span { color: var(--olive); }
+        .title-section p {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: clamp(16px, 1.6vw, 19px);
+            line-height: 1.6;
         }
 
         .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+            padding: 9px 13px;
+            border: 1px solid rgba(138,143,104,.35);
+            border-radius: 999px;
+            background: var(--olive-soft);
+            color: #4D5238;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        .header-badge::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--olive);
+            box-shadow: 0 0 0 4px rgba(138,143,104,.14);
+        }
+
+        .workspace {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            align-items: stretch;
+            gap: 26px;
+        }
+        .workspace.has-result {
+            grid-template-columns: minmax(0, 1fr) minmax(460px, 1fr);
+        }
+        .workspace:not(.has-result) .neo-card {
+            width: 100%;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .neo-card, .result-panel {
+            min-width: 0;
+            background: rgba(255,255,255,.9);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            box-shadow: var(--shadow);
+        }
+        .neo-card { padding: clamp(28px, 3.4vw, 44px); }
+        .form-heading { margin-bottom: 24px; }
+        .eyebrow {
             display: inline-block;
-            background: var(--secondary);
-            border: var(--border-width) solid var(--black);
-            padding: 4px 12px;
+            margin-bottom: 9px;
+            color: var(--olive);
+            font-size: 13px;
             font-weight: 800;
-            font-size: clamp(10px, 2.5vw, 12px);
+            letter-spacing: 1.7px;
             text-transform: uppercase;
-            position: absolute;
-            top: -14px;
-            left: 20px;
-            transform: rotate(-2deg);
-            z-index: 10;
         }
+        .form-heading h2 { font-size: clamp(32px, 2.8vw, 40px); letter-spacing: -.5px; }
+        .form-heading p { margin-top: 8px; color: var(--muted); font-size: 17px; line-height: 1.6; }
 
-        .title-section {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .title-section h1 {
-            font-size: clamp(24px, 6vw, 32px); /* Fluid title size */
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 4px;
-        }
-
-        .title-section p {
-            font-size: clamp(12px, 3vw, 14px);
-            color: var(--black);
-            opacity: 0.8;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
+        form { display: flex; flex-direction: column; gap: 21px; }
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 21px 18px;
         }
-
-        .field {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .full {
-            grid-column: span 2;
-        }
-
+        .field { display: flex; min-width: 0; flex-direction: column; gap: 7px; }
+        .full { grid-column: 1 / -1; }
         label {
+            color: #45473F;
+            font-size: 17px;
             font-weight: 800;
-            font-size: 11px;
+            letter-spacing: .5px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
-
         input, select {
-            background: var(--white);
-            border: 2px solid var(--black);
-            padding: 12px; /* Increased for better touch target */
-            font-family: inherit;
-            font-size: 16px; /* Prevents auto-zoom on iOS */
-            font-weight: 700;
-            outline: none;
-            transition: transform 0.1s ease;
             width: 100%;
-            border-radius: 0; /* Keeps brutalist sharp look */
+            min-height: 72px;
+            padding: 18px 20px;
+            border: 1px solid #D9D7CE;
+            border-radius: 11px;
+            outline: none;
+            background: #FCFBF8;
+            color: var(--ink);
+            font: 600 19px 'DM Sans', sans-serif;
+            transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
         }
-
+        input::placeholder { color: #A3A397; font-weight: 400; }
         input:focus, select:focus {
-            background: var(--accent);
-            transform: translate(-1px, -1px);
-            box-shadow: 3px 3px 0px 0px var(--black);
+            border-color: var(--rose);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(201,160,160,.2);
         }
+        .helper-note { margin-top: 2px; color: var(--muted); font-size: 14px; line-height: 1.55; }
 
         .btn-predict {
-            grid-column: span 2;
-            background: var(--accent);
-            border: var(--border-width) solid var(--black);
-            padding: 15px;
-            font-size: clamp(16px, 4vw, 18px);
-            font-weight: 800;
-            text-transform: uppercase;
-            cursor: pointer;
-            box-shadow: var(--shadow-small);
-            transition: all 0.1s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            margin-top: 5px;
+            gap: 9px;
             width: 100%;
+            min-height: 72px;
+            margin-top: 3px;
+            padding: 17px 20px;
+            border: 1px solid #777C58;
+            border-radius: 12px;
+            background: var(--olive);
+            color: white;
+            font: 800 19px 'DM Sans', sans-serif;
+            letter-spacing: .4px;
+            cursor: pointer;
+            box-shadow: 0 7px 0 rgba(72,76,52,.12);
+            transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
         }
+        .btn-predict:hover { background: #777D57; transform: translateY(-2px); box-shadow: 0 9px 0 rgba(72,76,52,.12); }
+        .btn-predict:active { transform: translateY(0); box-shadow: none; }
 
-        .btn-predict:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 6px 6px 0px 0px var(--black);
-        }
+        .message { padding: 15px 16px; border: 1px solid #E7B8BD; border-radius: 10px; font-size: 16px; font-weight: 600; line-height: 1.6; }
+        .error-message { background: #FFF0F1; color: #8B2635; }
 
-        .btn-predict:active {
-            transform: translate(0, 0);
-            box-shadow: none;
-        }
-
-        .result-box {
-            margin-top: 20px;
-            background: var(--black);
-            color: var(--white);
-            padding: 20px;
-            border: var(--border-width) solid var(--black);
-            text-align: center;
+        .result-panel {
             position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: clamp(28px, 3.4vw, 44px);
+            background:
+                radial-gradient(circle at 100% 0%, rgba(201,160,160,.2), transparent 17rem),
+                linear-gradient(155deg, #FFFFFF 0%, #F8F7F1 100%);
         }
+        .result-panel::after {
+            content: "";
+            position: absolute;
+            right: -56px;
+            bottom: -70px;
+            width: 210px;
+            height: 210px;
+            border: 1px solid rgba(138,143,104,.2);
+            border-radius: 50%;
+            box-shadow: 0 0 0 22px rgba(138,143,104,.035), 0 0 0 45px rgba(138,143,104,.025);
+            pointer-events: none;
+        }
+        .result-heading { position: relative; z-index: 1; }
+        .result-heading .eyebrow { color: #777C58; }
+        .result-heading h2 { font-size: 29px; letter-spacing: -.5px; }
+        .result-heading p { margin-top: 8px; color: var(--muted); font-size: 16px; line-height: 1.6; }
 
+        .empty-state {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex: 1;
+            min-height: 340px;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 26px 0;
+        }
+        .empty-icon {
+            display: grid;
+            width: 58px;
+            height: 58px;
+            margin-bottom: 20px;
+            place-items: center;
+            border: 1px solid rgba(201,160,160,.5);
+            border-radius: 17px;
+            background: var(--rose-soft);
+            color: #755B5B;
+            font-size: 25px;
+        }
+        .empty-state h3 { max-width: 360px; font-size: clamp(27px, 2.8vw, 34px); line-height: 1.2; letter-spacing: -.7px; }
+        .empty-state p { max-width: 390px; margin-top: 12px; color: var(--muted); font-size: 17px; line-height: 1.7; }
+        .result-box {
+            position: relative;
+            z-index: 1;
+            margin-top: 28px;
+            padding: 24px;
+            border: 1px solid rgba(138,143,104,.32);
+            border-radius: 17px;
+            background: #F0F1E8;
+            color: var(--ink);
+            text-align: left;
+        }
         .result-box::before {
             content: "ESTIMATED VALUE";
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--white);
-            color: var(--black);
+            display: block;
+            margin-bottom: 13px;
+            color: #666B4A;
+            font-size: 13px;
             font-weight: 800;
-            padding: 1px 8px;
-            font-size: 10px;
-            border: 2px solid var(--black);
+            letter-spacing: 1.3px;
         }
-
-        .prediction-text {
-            font-size: clamp(18px, 5vw, 24px);
-            font-weight: 800;
-            word-break: break-word;
+        .prediction-text { color: #34372B; font-size: clamp(34px, 3.5vw, 46px); font-weight: 800; line-height: 1.2; overflow-wrap: anywhere; }
+        .result-caption { margin-top: 13px; color: #686B5D; font-size: 15px; line-height: 1.6; }
+        .result-detail { margin-top: 11px; color: #4E5145; font-size: 16px; line-height: 1.6; overflow-wrap: anywhere; }
+        .result-footer {
+            position: relative;
+            z-index: 1;
+            margin-top: auto;
+            padding-top: 22px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
         }
+        .result-footer strong { color: var(--ink); }
 
-        .result-caption { font-size: 11px; line-height: 1.5; margin-top: 8px; color: #e5e5e5; }
-        .result-detail { font-size: 12px; line-height: 1.5; margin-top: 6px; color: #f5f5f5; overflow-wrap: anywhere; }
-        .message { padding: 12px; border: 2px solid var(--black); font-size: 13px; font-weight: 700; line-height: 1.5; }
-        .error-message { background: #ffe4e6; color: #881337; }
-        .helper-note { font-size: 11px; line-height: 1.5; color: #555; margin-top: 2px; }
-
-        /* Fully Responsive Breakpoints */
+        @media (max-width: 900px) {
+            body { padding: 32px 20px; }
+            .workspace.has-result { grid-template-columns: 1fr; }
+            .workspace:not(.has-result) .neo-card { max-width: none; }
+            .result-panel { min-height: 320px; }
+            .empty-state { min-height: 220px; }
+        }
+        @media (max-width: 520px) {
+            body { padding: 22px 12px; }
+            .page-heading { align-items: flex-start; flex-direction: column; gap: 15px; margin-bottom: 20px; }
+            .header-badge { align-self: flex-start; }
+            .neo-card, .result-panel { padding: 24px; border-radius: 17px; }
+            .form-grid { grid-template-columns: 1fr; gap: 16px; }
+            .full { grid-column: auto; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { transition-duration: .01ms !important; }
+        }
+    
+        /* Larger typography for comfortable reading */
         @media (max-width: 600px) {
-            .form-grid {
-                grid-template-columns: 1fr; /* Stack everything on small screens */
-            }
-            .full, .btn-predict {
-                grid-column: span 1;
-            }
-            .neo-card {
-                padding: 20px;
-            }
-            body {
-                padding: 30px 10px; /* More space for the top badge */
-            }
+            .title-section h1 { font-size: clamp(32px, 8vw, 42px); }
+            .form-heading h2 { font-size: 26px; }
+            label { font-size: 15px; }
+            input, select { font-size: 18px; min-height: 64px; }
+            .btn-predict { font-size: 19px; min-height: 66px; }
+            .prediction-text { font-size: clamp(30px, 8vw, 38px); }
+            .result-caption, .result-detail { font-size: 16px; }
+            .form-heading p, .result-heading p, .empty-state p { font-size: 16px; }
         }
-
-        /* Landscape orientation optimization for small mobile */
-        @media (max-height: 500px) and (orientation: landscape) {
-            body {
-                align-items: flex-start;
-                padding-top: 40px;
-            }
-        }
-    </style>
+</style>
 </head>
 <body>
+    <main class="app-shell">
+        <header class="page-heading">
+            <div class="brand-block title-section">
+                <h1 class="brand-name">INTEL <span>ESTATE</span></h1>
+                <p>Ahmedabad property valuation · ML-powered estimate</p>
+            </div>
+            <div class="header-badge">LIVE • AHMEDABAD</div>
+        </header>
 
-    <div class="neo-card">
-        <div class="header-badge">LIVE • AHMEDABAD</div>
-        
-        <div class="title-section">
-            <h1>INTEL ESTATE</h1>
-            <p>Ahmedabad property valuation • ML-powered estimate</p>
+        <div class="workspace{% if prediction_text %} has-result{% endif %}">
+            <section class="neo-card" aria-labelledby="form-title">
+                <div class="form-heading">
+                    <span class="eyebrow">Property analysis</span>
+                    <h2 id="form-title">Enter property details</h2>
+                    <p>Fill in the property information to generate an estimated valuation.</p>
+                </div>
+
+                <form id="valuation-form" action="/predict" method="post">
+                    <div class="field full">
+                        <label>📍 Area Location</label>
+                        <input type="text" name="location"
+                            value="{{ request.form.location|default('', true) }}"
+                            placeholder="Enter location (e.g. Satellite)" maxlength="160" autocomplete="off" required>
+                        <p class="helper-note">Enter a supported Ahmedabad locality. Unknown locations are rejected.</p>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="field">
+                            <label>🏗️ Area Type</label>
+                            <select name="area_type" required>
+                                <option value="" disabled {% if not request.form.area_type %}selected{% endif %}>Select Type</option>
+                                {% for a in area_types %}
+                                <option value="{{a}}" {% if request.form.area_type == a %}selected{% endif %}>{{a}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label>🏠 Property</label>
+                            <select name="property_type" required>
+                                <option value="" disabled {% if not request.form.property_type %}selected{% endif %}>Select Class</option>
+                                {% for p in property_types %}
+                                <option value="{{p}}" {% if request.form.property_type == p %}selected{% endif %}>{{p}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label>📏 Total Sqft</label>
+                            <input type="number" name="sqft" value="{{ request.form.sqft|default('', true) }}" placeholder="e.g. 1500" min="100" max="100000" step="1" required>
+                        </div>
+
+                        <div class="field">
+                            <label>🛏️ BHK</label>
+                            <input type="number" name="bhk_type" value="{{ request.form.bhk_type|default('', true) }}" placeholder="e.g. 3" min="1" max="10" step="1" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-predict">
+                        Analyze Price Now ⚡
+                    </button>
+
+                    {% if error_text %}
+                    <div id="validation-error" class="message error-message" role="alert">{{ error_text }}</div>
+                    {% endif %}
+                </form>
+            </section>
+
+{% if prediction_text %}
+            <aside class="result-panel" aria-live="polite" aria-labelledby="result-title">
+                <div class="result-heading">
+                    <span class="eyebrow">ML valuation output</span>
+                    <h2 id="result-title">Prediction results</h2>
+                    <p>Your estimate will appear here after you submit the property details.</p>
+                </div>
+
+                {% if prediction_text %}
+                <div class="result-box">
+                    <div class="prediction-text">{{ prediction_text }}</div>
+                    <p class="result-caption">Indicative model estimate · not a formal property appraisal</p>
+                    {% if matched_location %}
+                    <p class="result-detail">Matched location: <strong>{{ matched_location }}</strong></p>
+                    {% endif %}
+                    {% if rate_used %}
+                    <p class="result-detail">Rate feature used: ₹{{ "{:,.0f}".format(rate_used) }}/sq ft</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <div class="result-footer"><strong>IntelEstate</strong> · Machine-learning-based property estimate for Ahmedabad.</div>
+            </aside>
+{% endif %}
         </div>
-
-        <form id="valuation-form" action="/predict" method="post">
-            
-            <div class="field full">
-                <label>📍 Area Location</label>
-                <input type="text" name="location"
-                    value="{{ request.form.location|default('', true) }}"
-                    placeholder="Enter location (e.g. Satellite)" maxlength="160" autocomplete="off" required>
-                <p class="helper-note">Enter a supported Ahmedabad locality. Unknown locations are rejected.</p>
-            </div>
-
-            <div class="form-grid">
-                <div class="field">
-                    <label>🏗️ Area Type</label>
-                    <select name="area_type" required>
-                        <option value="" disabled {% if not request.form.area_type %}selected{% endif %}>Select Type</option>
-                        {% for a in area_types %}
-                        <option value="{{a}}" {% if request.form.area_type == a %}selected{% endif %}>{{a}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <div class="field">
-                    <label>🏠 Property</label>
-                    <select name="property_type" required>
-                        <option value="" disabled {% if not request.form.property_type %}selected{% endif %}>Select Class</option>
-                        {% for p in property_types %}
-                        <option value="{{p}}" {% if request.form.property_type == p %}selected{% endif %}>{{p}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <div class="field">
-                    <label>📏 Total Sqft</label>
-                    <input type="number" name="sqft" value="{{ request.form.sqft|default('', true) }}" placeholder="e.g. 1500" min="100" max="100000" step="1" required>
-                </div>
-
-                <div class="field">
-                    <label>🛏️ BHK</label>
-                    <input type="number" name="bhk_type" value="{{ request.form.bhk_type|default('', true) }}" placeholder="e.g. 3" min="1" max="10" step="1" required>
-                </div>
-            </div>
-
-            <button type="submit" class="btn-predict">
-                Analyze Price Now ⚡
-            </button>
-
-            {% if error_text %}
-            <div id="validation-error" class="message error-message" role="alert">{{ error_text }}</div>
-            {% endif %}
-
-            {% if prediction_text %}
-            <div class="result-box" aria-live="polite">
-                <div class="prediction-text">{{ prediction_text }}</div>
-                <p class="result-caption">Indicative model estimate · not a formal property appraisal</p>
-                {% if matched_location %}
-                <p class="result-detail">Matched location: <strong>{{ matched_location }}</strong></p>
-                {% endif %}
-                {% if rate_used %}
-                <p class="result-detail">Rate feature used: ₹{{ "{:,.0f}".format(rate_used) }}/sq ft</p>
-                {% endif %}
-            </div>
-            {% endif %}
-        </form>
-    </div>
-
-
-
+    </main>
 
     <script>
         // A server-rendered error belongs to the previous submission.

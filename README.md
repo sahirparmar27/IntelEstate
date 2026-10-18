@@ -1,4 +1,3 @@
-::: {align="center"}
 # 🏡 IntelEstate
 
 ### AI-Powered House Price Prediction for Ahmedabad
